@@ -2,8 +2,8 @@ package me.pedroguimaraes.weatherdemo.ui.weather
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_weather_today.*
 import me.pedroguimaraes.weatherdemo.R
@@ -50,7 +50,7 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
 
     override fun showMessage(message: Int) {
         hideProgress()
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        Snackbar.make(srl_weather, message, Snackbar.LENGTH_LONG).show()
     }
 
     override fun setCurrentWeather(weatherInfo: WeatherInfo) {
