@@ -14,7 +14,7 @@ interface WeatherContract {
     interface WeatherView {
         fun showProgress()
         fun hideProgress()
-        fun showMessage(message: String)
+        fun showMessage(message: Int)
         fun setCurrentWeather(weatherInfo: WeatherInfo)
     }
 }

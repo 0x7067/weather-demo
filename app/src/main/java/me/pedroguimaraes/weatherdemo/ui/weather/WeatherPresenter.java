@@ -8,6 +8,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import me.pedroguimaraes.weatherdemo.R;
 import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationManager;
 import me.pedroguimaraes.weatherdemo.model.Currently;
@@ -72,7 +73,7 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
 
                         @Override
                         public void onError(Throwable e) {
-                            weatherView.showMessage("Failed to get weather data. Please try again later.");
+                            weatherView.showMessage(R.string.weather_data_failure);
                         }
                     });
             compositeDisposable.add(disposable);

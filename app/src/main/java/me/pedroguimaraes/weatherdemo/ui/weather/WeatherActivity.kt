@@ -48,7 +48,7 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
         srl_weather!!.isRefreshing = false
     }
 
-    override fun showMessage(message: String) {
+    override fun showMessage(message: Int) {
         hideProgress()
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }

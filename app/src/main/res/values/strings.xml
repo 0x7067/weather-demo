@@ -1,8 +1,9 @@
 <resources>
 	<string name="app_name">WeatherDemo</string>
-	<string name="permission_location_rationale">To get your weather data we need access to your location</string>
-	<string name="permission_location_denied">Location permission denied</string>
-	<string name="permission_location_neverask">Location permission set to never ask again</string>
+	<string name="permission_location_rationale">To get your weather data we need access to your location.</string>
+	<string name="permission_location_denied">Location permission denied.</string>
+	<string name="permission_location_neverask">Location permission set to never ask again.</string>
+	<string name="weather_data_failure">Failed to get weather data. Please try again later.</string>
     <string name="not_available">N/A</string>
 	<string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>
