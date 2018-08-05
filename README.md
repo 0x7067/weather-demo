@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/0x7067/weather-demo/tree/master.svg?style=svg)](https://circleci.com/gh/0x7067/weather-demo/tree/master)
+
 # weather-demo
 A weather forecast app written using MVP
 
