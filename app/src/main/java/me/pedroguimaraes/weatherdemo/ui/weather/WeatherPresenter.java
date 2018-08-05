@@ -6,8 +6,9 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter, Weath
     private WeatherContract.Weatherview weatherView;
     private WeatherContract.WeatherInteractor weatherInteractor;
 
-    WeatherPresenter(WeatherContract.Weatherview weatherView, WeatherContract.WeatherInteractor weatherInteractor) {
-        this.weatherView = weatherView;
+    @Override
+    public void attachView(WeatherContract.Weatherview weatherview, WeatherContract.WeatherInteractor weatherInteractor) {
+        this.weatherView = weatherview;
         this.weatherInteractor = weatherInteractor;
     }
 
@@ -19,7 +20,9 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter, Weath
         getCurrentWeather();
     }
 
-    public void onDestroy() {
+
+    @Override
+    public void detachView() {
         weatherView = null;
     }
 

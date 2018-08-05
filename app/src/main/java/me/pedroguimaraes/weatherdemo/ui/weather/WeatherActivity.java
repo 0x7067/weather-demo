@@ -52,7 +52,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
         permissionEnforcer = new PermissionEnforcer(this);
         permissionEnforcer.requestPermissions();
 
-        weatherPresenter = new WeatherPresenter(this, new WeatherInteractor());
+        weatherPresenter = new WeatherPresenter();
+        weatherPresenter.attachView(this, new WeatherInteractor());
         ButterKnife.bind(this);
 
 
@@ -100,8 +101,8 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
 
     @Override
     protected void onDestroy() {
+        weatherPresenter.detachView();
         super.onDestroy();
-        weatherPresenter.onDestroy();
     }
 
     @Override

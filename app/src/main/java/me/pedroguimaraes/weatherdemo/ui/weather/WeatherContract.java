@@ -5,8 +5,8 @@ import me.pedroguimaraes.weatherdemo.model.Weather;
 public interface WeatherContract {
 
     interface WeatherPresenter {
-        void onDestroy();
-        void onResume();
+        void attachView(WeatherContract.Weatherview weatherview, WeatherContract.WeatherInteractor weatherInteractor);
+        void detachView();
         Weatherview getWeatherView();
     }
 
