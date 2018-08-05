@@ -3,4 +3,13 @@
 # weather-demo
 A weather forecast app written using MVP
 
+## Screenshot
 ![Manaus](/screenshots/Screenshot_2018-08-04-20-28-08--703579033.png?raw=true "Manaus")
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* DarkSky for [weather data](https://darksky.net/dev)
