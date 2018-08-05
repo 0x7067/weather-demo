@@ -5,7 +5,7 @@ import me.pedroguimaraes.weatherdemo.model.WeatherInfo
 interface WeatherContract {
 
     interface WeatherPresenter {
-        val weatherView: WeatherView
+        val weatherView: WeatherView?
         fun attachView(weatherView: WeatherView)
         fun detachView()
         fun getWeatherData()

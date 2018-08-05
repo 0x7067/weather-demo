@@ -20,12 +20,10 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
 
     private CompositeDisposable compositeDisposable;
     private DarkSkyApiInterface darkSkyApiInterface;
-    private LocationManager locationManager;
 
     public WeatherPresenter() {
         this.compositeDisposable = new CompositeDisposable();
         this.darkSkyApiInterface = DarkSkyApiInterface.Companion.create();
-        this.locationManager = new LocationManager();
     }
 
 
@@ -48,17 +46,15 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
         compositeDisposable.dispose();
     }
 
-
     public WeatherContract.WeatherView getWeatherView() {
         return weatherView;
     }
 
     @Override
     public void getWeatherData() {
-        locationManager = new LocationManager();
-        compositeDisposable = new CompositeDisposable();
-
+        LocationManager locationManager = new LocationManager();
         Location location = locationManager.getLocation();
+
         if (location != null) {
             Disposable disposable = darkSkyApiInterface.getCurrentlyWeather(location.getLatitude(), location.getLongitude())
                     .subscribeOn(Schedulers.io())
