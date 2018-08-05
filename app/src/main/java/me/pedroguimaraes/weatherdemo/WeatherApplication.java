@@ -7,10 +7,6 @@ public class WeatherApplication extends Application {
 
     private static WeatherApplication instance;
 
-    public static WeatherApplication getInstance() {
-        return instance;
-    }
-
     public static Context getContext(){
         return instance.getApplicationContext();
     }
