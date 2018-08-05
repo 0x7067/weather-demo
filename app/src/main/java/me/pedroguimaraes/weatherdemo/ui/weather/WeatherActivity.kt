@@ -2,12 +2,12 @@ package me.pedroguimaraes.weatherdemo.ui.weather
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_weather_today.*
 import me.pedroguimaraes.weatherdemo.R
+import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 import me.pedroguimaraes.weatherdemo.interactors.permissions.PermissionEnforcer
 import me.pedroguimaraes.weatherdemo.model.WeatherInfo
 
@@ -20,10 +20,12 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        permissionEnforcer = PermissionEnforcer(this)
+        val dependencyInjection = DependencyInjection(this)
+
+        permissionEnforcer = dependencyInjection.permissionEnforcer(this)
         permissionEnforcer.requestPermissions()
 
-        weatherPresenter = WeatherPresenter()
+        weatherPresenter = dependencyInjection.weatherPresenter()
         weatherPresenter.attachView(this)
 
 

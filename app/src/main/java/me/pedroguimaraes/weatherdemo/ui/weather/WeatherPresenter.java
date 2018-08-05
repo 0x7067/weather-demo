@@ -10,7 +10,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import me.pedroguimaraes.weatherdemo.R;
 import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
-import me.pedroguimaraes.weatherdemo.interactors.location.LocationManager;
+import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter;
 import me.pedroguimaraes.weatherdemo.model.Currently;
 import me.pedroguimaraes.weatherdemo.model.Weather;
 import me.pedroguimaraes.weatherdemo.model.WeatherInfo;
@@ -20,10 +20,12 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
 
     private CompositeDisposable compositeDisposable;
     private DarkSkyApiInterface darkSkyApiInterface;
+    private LocationGetter locationGetter;
 
-    public WeatherPresenter() {
-        this.compositeDisposable = new CompositeDisposable();
-        this.darkSkyApiInterface = DarkSkyApiInterface.Companion.create();
+    public WeatherPresenter(DarkSkyApiInterface darkSkyApiInterface, LocationGetter locationGetter) {
+        compositeDisposable = new CompositeDisposable();
+        this.darkSkyApiInterface = darkSkyApiInterface;
+        this.locationGetter = locationGetter;
     }
 
     @Override
@@ -47,8 +49,7 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
             weatherView.showProgress();
         }
 
-        LocationManager locationManager = new LocationManager();
-        Location location = locationManager.getLocation();
+        Location location = locationGetter.getLocation();
 
         if (location != null) {
             Disposable disposable = darkSkyApiInterface.getCurrentlyWeather(location.getLatitude(), location.getLongitude())

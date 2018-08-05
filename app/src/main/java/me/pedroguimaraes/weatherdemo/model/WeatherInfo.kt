@@ -2,7 +2,7 @@ package me.pedroguimaraes.weatherdemo.model
 
 
 import me.pedroguimaraes.weatherdemo.R
-import me.pedroguimaraes.weatherdemo.interactors.location.LocationManager
+import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter
 import java.util.*
 
 class WeatherInfo(private val lat: Double, private val lon: Double, val icon: String,
@@ -22,7 +22,7 @@ class WeatherInfo(private val lat: Double, private val lon: Double, val icon: St
     }
 
     fun getCityName(): String {
-        val locationManager = LocationManager()
+        val locationManager = LocationGetter()
         return locationManager.getCityName(lat, lon)
     }
 

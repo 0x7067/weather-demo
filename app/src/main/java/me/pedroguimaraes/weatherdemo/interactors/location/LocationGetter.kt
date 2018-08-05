@@ -12,7 +12,7 @@ import me.pedroguimaraes.weatherdemo.WeatherApplication
 import java.util.*
 
 
-class LocationManager : LocationListener {
+class LocationGetter : LocationListener {
 
     private val locationManager: LocationManager
     private val context: Context = WeatherApplication.getContext()
