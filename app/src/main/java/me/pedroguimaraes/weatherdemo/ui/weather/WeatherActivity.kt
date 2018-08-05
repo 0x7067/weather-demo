@@ -27,7 +27,7 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
         weatherPresenter.attachView(this)
 
 
-        srl_weather.setOnRefreshListener({ this.getCurrentWeather() })
+        srl_weather.setOnRefreshListener { this.getCurrentWeather() }
     }
 
     override fun onResume() {

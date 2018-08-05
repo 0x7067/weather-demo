@@ -26,7 +26,6 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
         this.darkSkyApiInterface = DarkSkyApiInterface.Companion.create();
     }
 
-
     @Override
     public void attachView(@NonNull WeatherContract.WeatherView weatherView) {
         this.weatherView = weatherView;
