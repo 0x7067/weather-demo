@@ -31,14 +31,6 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
         this.weatherView = weatherView;
     }
 
-    public void onResume() {
-        if (weatherView != null) {
-            weatherView.showProgress();
-        }
-
-        getWeatherData();
-    }
-
     @Override
     public void detachView() {
         weatherView = null;
@@ -51,6 +43,10 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
 
     @Override
     public void getWeatherData() {
+        if (weatherView != null) {
+            weatherView.showProgress();
+        }
+
         LocationManager locationManager = new LocationManager();
         Location location = locationManager.getLocation();
 
