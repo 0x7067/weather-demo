@@ -88,10 +88,10 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
 
     @Override
     public void setCurrentWeather(WeatherInfo weatherInfo) {
-        cityTemperature.setText(String.format("%.0f", weatherInfo.getTemperature()) + "°");
+        cityTemperature.setText(weatherInfo.getTemperature());
         citySummary.setText(weatherInfo.getSummary());
-        rainProbability.setText(String.format("%.0f", weatherInfo.getRainProbability()) + " %");
-        windSpeed.setText(String.format("%.0f", weatherInfo.getWindSpeed()) + "mph");
+        rainProbability.setText(weatherInfo.getRainProbability());
+        windSpeed.setText(weatherInfo.getWindSpeed());
         cityName.setText(weatherInfo.getCityName());
         weatherIcon.setImageResource(weatherInfo.getIcon());
     }
