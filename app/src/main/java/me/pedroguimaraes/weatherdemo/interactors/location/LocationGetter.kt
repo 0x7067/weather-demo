@@ -10,7 +10,7 @@ import me.pedroguimaraes.weatherdemo.WeatherApplication
 import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 
 
-class LocationGetter : LocationListener {
+open class LocationGetter : LocationListener {
 
     private val dependencyInjection = DependencyInjection(WeatherApplication.getContext())
 

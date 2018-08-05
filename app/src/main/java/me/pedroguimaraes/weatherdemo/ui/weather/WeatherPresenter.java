@@ -23,7 +23,6 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
     private LocationGetter locationGetter;
 
     public WeatherPresenter(DarkSkyApiInterface darkSkyApiInterface, LocationGetter locationGetter) {
-        compositeDisposable = new CompositeDisposable();
         this.darkSkyApiInterface = darkSkyApiInterface;
         this.locationGetter = locationGetter;
     }
@@ -31,6 +30,7 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
     @Override
     public void attachView(@NonNull WeatherContract.WeatherView weatherView) {
         this.weatherView = weatherView;
+        compositeDisposable = new CompositeDisposable();
     }
 
     @Override
