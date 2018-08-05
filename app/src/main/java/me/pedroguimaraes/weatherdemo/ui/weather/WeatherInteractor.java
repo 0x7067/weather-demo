@@ -1,16 +1,15 @@
 package me.pedroguimaraes.weatherdemo.ui.weather;
 
 import android.location.Location;
-import android.support.annotation.LayoutRes;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import me.pedroguimaraes.weatherdemo.R;
 import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationManager;
 import me.pedroguimaraes.weatherdemo.model.Currently;
 import me.pedroguimaraes.weatherdemo.model.Weather;
+import me.pedroguimaraes.weatherdemo.model.WeatherInfo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,9 +30,8 @@ public class WeatherInteractor implements WeatherContract.WeatherInteractor {
         darkSkyApiInterface.getCurrentlyWeather(location.getLatitude(), location.getLongitude()).enqueue(new Callback<Weather>() {
             @Override
             public void onResponse(Call<Weather> call, Response<Weather> response) {
-                Weather weather = response.body();
-                String city = getCityName(weather.getLatitude(), weather.getLongitude());
-                onFinishedListener.onFinished(weather, city, getWeatherIcon(weather.getCurrently().getIcon()));
+                WeatherInfo weatherInfo = getWeatherInfo(response.body());
+                onFinishedListener.onFinished(weatherInfo);
             }
 
             @Override
@@ -41,6 +39,18 @@ public class WeatherInteractor implements WeatherContract.WeatherInteractor {
                 onFinishedListener.onFailure(t);
             }
         });
+    }
+
+    private WeatherInfo getWeatherInfo(Weather weather) {
+        Currently currently = weather.getCurrently();
+        String cityName = getCityName(weather.getLatitude(), weather.getLongitude());
+        int icon = getWeatherIcon(currently.getIcon());
+        String summary = weather.getCurrently().getSummary();
+        Double temperature = weather.getCurrently().getTemperature();
+        Double rainProbability = weather.getCurrently().getPrecipProbability();
+        Double windSpeed = weather.getCurrently().getWindSpeed();
+
+        return new WeatherInfo(cityName, icon, summary, temperature, rainProbability, windSpeed);
     }
 
     private String getCityName(Double lat, Double lon) {

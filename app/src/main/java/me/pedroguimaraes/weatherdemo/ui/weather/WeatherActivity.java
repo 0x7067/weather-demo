@@ -14,11 +14,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.pedroguimaraes.weatherdemo.R;
 import me.pedroguimaraes.weatherdemo.interactors.permissions.PermissionEnforcer;
-import me.pedroguimaraes.weatherdemo.model.Currently;
-import me.pedroguimaraes.weatherdemo.model.Weather;
-import me.pedroguimaraes.weatherdemo.util.TemperatureUnit;
+import me.pedroguimaraes.weatherdemo.model.WeatherInfo;
 
-public class WeatherActivity extends AppCompatActivity implements WeatherContract.Weatherview {
+public class WeatherActivity extends AppCompatActivity implements WeatherContract.WeatherView {
 
     private WeatherPresenter weatherPresenter;
     private PermissionEnforcer permissionEnforcer;
@@ -89,14 +87,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherContrac
     }
 
     @Override
-    public void setCurrentWeather(Weather weather, String city, int icon) {
-        Currently currently = weather.getCurrently();
-        cityTemperature.setText(String.format("%.0f", TemperatureUnit.fahrenheitToCelsius(currently.getTemperature())) + "°");
-        citySummary.setText(currently.getSummary());
-        rainProbability.setText(String.format("%.0f", currently.getPrecipProbability()) + " %");
-        windSpeed.setText(String.format("%.0f", currently.getWindSpeed()) + "mph");
-        cityName.setText(city);
-        weatherIcon.setImageResource(icon);
+    public void setCurrentWeather(WeatherInfo weatherInfo) {
+        cityTemperature.setText(String.format("%.0f", weatherInfo.getTemperature()) + "°");
+        citySummary.setText(weatherInfo.getSummary());
+        rainProbability.setText(String.format("%.0f", weatherInfo.getRainProbability()) + " %");
+        windSpeed.setText(String.format("%.0f", weatherInfo.getWindSpeed()) + "mph");
+        cityName.setText(weatherInfo.getCityName());
+        weatherIcon.setImageResource(weatherInfo.getIcon());
     }
 
     @Override

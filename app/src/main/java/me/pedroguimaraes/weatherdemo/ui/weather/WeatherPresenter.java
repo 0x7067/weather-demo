@@ -1,14 +1,14 @@
 package me.pedroguimaraes.weatherdemo.ui.weather;
 
-import me.pedroguimaraes.weatherdemo.model.Weather;
+import me.pedroguimaraes.weatherdemo.model.WeatherInfo;
 
 public class WeatherPresenter implements WeatherContract.WeatherPresenter, WeatherContract.WeatherInteractor.OnFinishedListener {
-    private WeatherContract.Weatherview weatherView;
+    private WeatherContract.WeatherView weatherView;
     private WeatherContract.WeatherInteractor weatherInteractor;
 
     @Override
-    public void attachView(WeatherContract.Weatherview weatherview, WeatherContract.WeatherInteractor weatherInteractor) {
-        this.weatherView = weatherview;
+    public void attachView(WeatherContract.WeatherView weatherView, WeatherContract.WeatherInteractor weatherInteractor) {
+        this.weatherView = weatherView;
         this.weatherInteractor = weatherInteractor;
     }
 
@@ -31,14 +31,14 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter, Weath
     }
 
 
-    public WeatherContract.Weatherview getWeatherView() {
+    public WeatherContract.WeatherView getWeatherView() {
         return weatherView;
     }
 
     @Override
-    public void onFinished(Weather weather, String city, int icon) {
+    public void onFinished(WeatherInfo weatherInfo) {
         weatherView.hideProgress();
-        weatherView.setCurrentWeather(weather, city, icon);
+        weatherView.setCurrentWeather(weatherInfo);
     }
 
     @Override

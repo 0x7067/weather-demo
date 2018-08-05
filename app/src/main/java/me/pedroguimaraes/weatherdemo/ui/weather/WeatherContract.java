@@ -1,26 +1,26 @@
 package me.pedroguimaraes.weatherdemo.ui.weather;
 
-import me.pedroguimaraes.weatherdemo.model.Weather;
+import me.pedroguimaraes.weatherdemo.model.WeatherInfo;
 
 public interface WeatherContract {
 
     interface WeatherPresenter {
-        void attachView(WeatherContract.Weatherview weatherview, WeatherContract.WeatherInteractor weatherInteractor);
+        void attachView(WeatherView weatherView, WeatherContract.WeatherInteractor weatherInteractor);
         void detachView();
-        Weatherview getWeatherView();
+        WeatherView getWeatherView();
     }
 
-    interface Weatherview {
+    interface WeatherView {
         void showProgress();
         void hideProgress();
         void showMessage(String message);
-        void setCurrentWeather(Weather weather, String city, int icon);
+        void setCurrentWeather(WeatherInfo weatherInfo);
     }
 
     interface WeatherInteractor {
 
         interface OnFinishedListener {
-            void onFinished(Weather weather, String cityName, int icon);
+            void onFinished(WeatherInfo weatherInfo);
             void onFailure(Throwable t);
         }
 
