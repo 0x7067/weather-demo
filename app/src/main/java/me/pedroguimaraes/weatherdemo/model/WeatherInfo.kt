@@ -28,7 +28,7 @@ class WeatherInfo(private val lat: Double, private val lon: Double, val icon: St
 
     fun getWeatherIcon(): Int? {
         val weather = getWeatherMap()
-        return weather[icon]
+        return getOrDefault(weather, icon, R.mipmap.none_available)
     }
 
     private fun getWeatherMap(): HashMap<String, Int> {
@@ -50,4 +50,12 @@ class WeatherInfo(private val lat: Double, private val lon: Double, val icon: St
 
         return weather
     }
+
+    private fun <K, V> getOrDefault(map: Map<K, V>, key: K, defaultValue: V): V? {
+        return if ((map[key]) != null || map.containsKey(key))
+            map[key]
+        else
+            defaultValue
+    }
+
 }
