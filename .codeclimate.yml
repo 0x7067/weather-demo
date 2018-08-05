@@ -1,0 +1,32 @@
+version: "2"
+plugins:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - java
+      - kotlin
+  fixme:
+    enabled: true
+  sonar-java:
+    enabled: true
+    config:
+      sonar.java.source: 8
+  pmd:
+    enabled: true  
+    config:
+      rules:
+        - "java-basic"
+        - "java-design"
+        - "java-android"
+exclude_patterns:
+-".circleci/"
+- "build/"
+- "certs/"
+- "gradle/"
+- "licenses/"
+- "proguard/"
+- "*.gradle"
+- "*.iml"
+- "*.xml"
+- "*.md"
