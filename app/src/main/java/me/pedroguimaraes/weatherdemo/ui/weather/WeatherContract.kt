@@ -6,8 +6,9 @@ interface WeatherContract {
 
     interface WeatherPresenter {
         val weatherView: WeatherView
-        fun attachView(weatherView: WeatherView, weatherInteractor: WeatherContract.WeatherInteractor)
+        fun attachView(weatherView: WeatherView)
         fun detachView()
+        fun getWeatherData()
     }
 
     interface WeatherView {
@@ -15,15 +16,5 @@ interface WeatherContract {
         fun hideProgress()
         fun showMessage(message: String)
         fun setCurrentWeather(weatherInfo: WeatherInfo)
-    }
-
-    interface WeatherInteractor {
-
-        interface OnFinishedListener {
-            fun onFinished(weatherInfo: WeatherInfo)
-            fun onFailure(t: Throwable)
-        }
-
-        fun getWeather(onFinishedListener: OnFinishedListener)
     }
 }

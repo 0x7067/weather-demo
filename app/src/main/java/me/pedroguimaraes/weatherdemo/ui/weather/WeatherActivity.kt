@@ -23,7 +23,7 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
         permissionEnforcer!!.requestPermissions()
 
         weatherPresenter = WeatherPresenter()
-        weatherPresenter!!.attachView(this, WeatherInteractor())
+        weatherPresenter!!.attachView(this)
 
 
         srl_weather!!.setOnRefreshListener({ this.getCurrentWeather() })
@@ -58,8 +58,8 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
         tv_summary!!.text = weatherInfo.summary
         tv_weather_rain!!.text = weatherInfo.getRainProbability()
         tv_weather_wind!!.text = weatherInfo.getWindSpeed()
-        tv_city_name!!.text = weatherInfo.cityName
-        img_weather_icon!!.setImageResource(weatherInfo.icon)
+        tv_city_name!!.text = weatherInfo.getCityName()
+        img_weather_icon!!.setImageResource(weatherInfo.getWeatherIcon()!!)
     }
 
     override fun onDestroy() {
