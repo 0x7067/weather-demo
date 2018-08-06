@@ -69,11 +69,12 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
     }
 
     public void getLocation() {
-        RxBus.subscribe((message) -> {
+        Disposable disposable = RxBus.subscribe((message) -> {
             if (message instanceof Location) {
                 getWeatherData((Location) message);
             }
         });
+        compositeDisposable.add(disposable);
     }
 
     private WeatherInfo getWeatherInfo(Weather weather) {
