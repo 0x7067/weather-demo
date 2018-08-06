@@ -10,6 +10,7 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import me.pedroguimaraes.weatherdemo.R;
 import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
+import me.pedroguimaraes.weatherdemo.bus.RxBus;
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter;
 import me.pedroguimaraes.weatherdemo.model.Currently;
 import me.pedroguimaraes.weatherdemo.model.Weather;
@@ -20,11 +21,10 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
 
     private CompositeDisposable compositeDisposable;
     private DarkSkyApiInterface darkSkyApiInterface;
-    private LocationGetter locationGetter;
 
     public WeatherPresenter(DarkSkyApiInterface darkSkyApiInterface, LocationGetter locationGetter) {
         this.darkSkyApiInterface = darkSkyApiInterface;
-        this.locationGetter = locationGetter;
+        locationGetter.getLocation();
     }
 
     @Override
@@ -44,32 +44,36 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
     }
 
     @Override
-    public void getWeatherData() {
+    public void getWeatherData(@NonNull Location location) {
         if (weatherView != null) {
             weatherView.showProgress();
         }
 
-        Location location = locationGetter.getLocation();
+        Disposable disposable = darkSkyApiInterface.getCurrentlyWeather(location.getLatitude(), location.getLongitude())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Weather>() {
+                    @Override
+                    public void onSuccess(Weather weather) {
+                        weatherView.hideProgress();
+                        WeatherInfo weatherInfo = getWeatherInfo(weather);
+                        weatherView.setCurrentWeather(weatherInfo);
+                    }
 
-        if (location != null) {
-            Disposable disposable = darkSkyApiInterface.getCurrentlyWeather(location.getLatitude(), location.getLongitude())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(new DisposableSingleObserver<Weather>() {
-                        @Override
-                        public void onSuccess(Weather weather) {
-                            weatherView.hideProgress();
-                            WeatherInfo weatherInfo = getWeatherInfo(weather);
-                            weatherView.setCurrentWeather(weatherInfo);
-                        }
+                    @Override
+                    public void onError(Throwable e) {
+                        weatherView.showMessage(R.string.weather_data_failure);
+                    }
+                });
+        compositeDisposable.add(disposable);
+    }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            weatherView.showMessage(R.string.weather_data_failure);
-                        }
-                    });
-            compositeDisposable.add(disposable);
-        }
+    public void getLocation() {
+        RxBus.subscribe((message) -> {
+            if (message instanceof Location) {
+                getWeatherData((Location) message);
+            }
+        });
     }
 
     private WeatherInfo getWeatherInfo(Weather weather) {
