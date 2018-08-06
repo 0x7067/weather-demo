@@ -1,5 +1,6 @@
 package me.pedroguimaraes.weatherdemo.ui.weather
 
+import android.location.Location
 import me.pedroguimaraes.weatherdemo.model.WeatherInfo
 
 interface WeatherContract {
@@ -8,7 +9,7 @@ interface WeatherContract {
         val weatherView: WeatherView?
         fun attachView(weatherView: WeatherView)
         fun detachView()
-        fun getWeatherData()
+        fun getWeatherData(location: Location)
     }
 
     interface WeatherView {
