@@ -7,7 +7,6 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import me.pedroguimaraes.weatherdemo.WeatherApplication
-import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 
 
 open class LocationGetter : LocationListener {

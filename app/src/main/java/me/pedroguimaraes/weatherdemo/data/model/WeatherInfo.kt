@@ -5,7 +5,7 @@ import me.pedroguimaraes.weatherdemo.R
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter
 import java.util.*
 
-class WeatherInfo(private val lat: Double, private val lon: Double, val icon: String,
+class WeatherInfo   (private val lat: Double, private val lon: Double, val icon: String,
                   val summary: String, private val temperature: Double?,
                   private val rainProbability: Double?, private val windSpeed: Double?) {
 

@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_weather_today.*
 import me.pedroguimaraes.weatherdemo.R
 import me.pedroguimaraes.weatherdemo.data.model.WeatherInfo
-import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 import me.pedroguimaraes.weatherdemo.interactors.permissions.PermissionEnforcer
 
 class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
