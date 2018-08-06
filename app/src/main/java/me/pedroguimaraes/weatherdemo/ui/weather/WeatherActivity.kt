@@ -39,7 +39,7 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
 
     private fun getCurrentWeather() {
         if (permissionEnforcer.allPermissionsGranted()) {
-            weatherPresenter.getWeatherData()
+            weatherPresenter.getLocation()
         }
     }
 
