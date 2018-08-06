@@ -1,4 +1,4 @@
-
+package me.pedroguimaraes.weatherdemo
 
 import android.app.Application
 import android.content.Context
