@@ -7,6 +7,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import me.pedroguimaraes.weatherdemo.WeatherApplication
+import me.pedroguimaraes.weatherdemo.bus.RxBus
 import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 
 
@@ -17,19 +18,13 @@ open class LocationGetter : LocationListener {
     private val locationManager: LocationManager = dependencyInjection.locationManager()
     private val packageManager: PackageManager = dependencyInjection.packageManager()
 
-    private var location: Location? = null
-
     @SuppressLint("MissingPermission")
-    fun getLocation(): Location? {
+    fun getLocation() {
         if (hasNetworkAndIsEnabled()) {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATES, MIN_DISTANCE_TO_REQUEST_LOCATION, this)
-            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         } else if (hasGpsAndIsEnabled()) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_FOR_UPDATES, MIN_DISTANCE_TO_REQUEST_LOCATION, this)
-            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         }
-
-        return location
     }
 
     fun getCityName(lat: Double, lon: Double): String {
@@ -49,7 +44,7 @@ open class LocationGetter : LocationListener {
     }
 
     override fun onLocationChanged(location: Location) {
-        this.location = location
+        RxBus.publish(location)
     }
 
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
