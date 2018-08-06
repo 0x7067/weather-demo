@@ -9,11 +9,11 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import me.pedroguimaraes.weatherdemo.R;
-import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
+import me.pedroguimaraes.weatherdemo.data.api.DarkSkyApiInterface;
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter;
-import me.pedroguimaraes.weatherdemo.model.Currently;
-import me.pedroguimaraes.weatherdemo.model.Weather;
-import me.pedroguimaraes.weatherdemo.model.WeatherInfo;
+import me.pedroguimaraes.weatherdemo.data.model.Currently;
+import me.pedroguimaraes.weatherdemo.data.model.Weather;
+import me.pedroguimaraes.weatherdemo.data.model.WeatherInfo;
 
 public class WeatherPresenter implements WeatherContract.WeatherPresenter {
     private WeatherContract.WeatherView weatherView;

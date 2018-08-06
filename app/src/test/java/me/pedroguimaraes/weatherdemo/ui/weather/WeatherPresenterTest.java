@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
+import me.pedroguimaraes.weatherdemo.data.api.DarkSkyApiInterface;
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter;
 
 import static junit.framework.Assert.assertNotNull;

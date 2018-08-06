@@ -1,4 +1,4 @@
-package me.pedroguimaraes.weatherdemo.model
+package me.pedroguimaraes.weatherdemo.data.model
 
 data class Currently(val time: Int, val summary: String, val icon: String,
 					 val nearestStormDistane: Int, val precipIntensity: Double,

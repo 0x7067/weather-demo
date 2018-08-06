@@ -8,7 +8,7 @@ import android.location.LocationManager;
 
 import java.util.Locale;
 
-import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
+import me.pedroguimaraes.weatherdemo.data.api.DarkSkyApiInterface;
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter;
 import me.pedroguimaraes.weatherdemo.interactors.permissions.PermissionEnforcer;
 import me.pedroguimaraes.weatherdemo.ui.weather.WeatherPresenter;

@@ -1,6 +1,6 @@
 package me.pedroguimaraes.weatherdemo.ui.weather
 
-import me.pedroguimaraes.weatherdemo.model.WeatherInfo
+import me.pedroguimaraes.weatherdemo.data.model.WeatherInfo
 
 interface WeatherContract {
 

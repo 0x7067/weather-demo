@@ -1,7 +1,7 @@
-package me.pedroguimaraes.weatherdemo.api
+package me.pedroguimaraes.weatherdemo.data.api
 
 import io.reactivex.Single
-import me.pedroguimaraes.weatherdemo.model.Weather
+import me.pedroguimaraes.weatherdemo.data.model.Weather
 import retrofit2.http.GET
 import retrofit2.http.Path
 

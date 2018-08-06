@@ -1,4 +1,4 @@
-package me.pedroguimaraes.weatherdemo.model
+package me.pedroguimaraes.weatherdemo.data.model
 
 
 import me.pedroguimaraes.weatherdemo.R
