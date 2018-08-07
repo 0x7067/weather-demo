@@ -20,7 +20,7 @@ plugins:
         - "java-design"
         - "java-android"
 exclude_patterns:
--".circleci/"
+- ".circleci/"
 - "build/"
 - "certs/"
 - "gradle/"
