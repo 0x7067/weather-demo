@@ -59,7 +59,7 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
                         @Override
                         public void onSuccess(Weather weather) {
                             weatherView.hideProgress();
-                            WeatherInfo weatherInfo = getWeatherInfo(weather);
+                            WeatherInfo weatherInfo = weather.getWeatherInfo();
                             weatherView.setCurrentWeather(weatherInfo);
                         }
 
@@ -70,19 +70,6 @@ public class WeatherPresenter implements WeatherContract.WeatherPresenter {
                     });
             compositeDisposable.add(disposable);
         }
-    }
-
-    private WeatherInfo getWeatherInfo(Weather weather) {
-        Currently currently = weather.getCurrently();
-        Double lat = weather.getLatitude();
-        Double lon = weather.getLongitude();
-        String icon = currently.getIcon();
-        String summary = weather.getCurrently().getSummary();
-        Double temperature = weather.getCurrently().getTemperature();
-        Double rainProbability = weather.getCurrently().getPrecipProbability();
-        Double windSpeed = weather.getCurrently().getWindSpeed();
-
-        return new WeatherInfo(lat, lon, icon, summary, temperature, rainProbability, windSpeed);
     }
 
 }
