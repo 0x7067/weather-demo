@@ -13,23 +13,19 @@ class WeatherPresenter(private val darkSkyApiInterface: DarkSkyApiInterface,
                        private val locationGetter: LocationGetter) : WeatherContract.WeatherPresenter {
 
     override var weatherView: WeatherContract.WeatherView? = null
-
-    private var compositeDisposable: CompositeDisposable? = null
+    private var compositeDisposable = CompositeDisposable()
 
     override fun attachView(weatherView: WeatherContract.WeatherView) {
         this.weatherView = weatherView
-        compositeDisposable = CompositeDisposable()
     }
 
     override fun detachView() {
         this.weatherView = null
-        compositeDisposable!!.dispose()
+        compositeDisposable.dispose()
     }
 
     override fun getWeatherData() {
-        if (weatherView != null) {
-            weatherView!!.showProgress()
-        }
+        weatherView?.showProgress()
 
         val location = locationGetter.getLocation()
 
@@ -48,7 +44,7 @@ class WeatherPresenter(private val darkSkyApiInterface: DarkSkyApiInterface,
                             weatherView!!.showMessage(R.string.weather_data_failure)
                         }
                     })
-            compositeDisposable!!.add(disposable)
+            compositeDisposable.add(disposable)
         }
     }
 }
