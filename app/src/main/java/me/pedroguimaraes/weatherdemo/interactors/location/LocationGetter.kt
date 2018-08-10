@@ -11,7 +11,7 @@ import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 
 open class LocationGetter : LocationListener {
 
-    private val dependencyInjection = DependencyInjection(WeatherApplication.getContext())
+    private val dependencyInjection = DependencyInjection(WeatherApplication.context)
 
     private val locationManager: LocationManager = dependencyInjection.locationManager()
     private val packageManager: PackageManager = dependencyInjection.packageManager()
