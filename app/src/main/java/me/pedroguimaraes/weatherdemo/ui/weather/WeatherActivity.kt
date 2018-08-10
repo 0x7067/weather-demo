@@ -1,9 +1,11 @@
 package me.pedroguimaraes.weatherdemo.ui.weather
 
-import android.content.Intent
+import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main.srl_weather
 import kotlinx.android.synthetic.main.layout_weather_today.img_weather_icon
 import kotlinx.android.synthetic.main.layout_weather_today.tv_city_name
@@ -13,13 +15,13 @@ import kotlinx.android.synthetic.main.layout_weather_today.tv_weather_rain
 import kotlinx.android.synthetic.main.layout_weather_today.tv_weather_wind
 import me.pedroguimaraes.weatherdemo.R
 import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
-import me.pedroguimaraes.weatherdemo.interactors.permissions.PermissionEnforcer
 import me.pedroguimaraes.weatherdemo.model.WeatherInfo
+import me.pedroguimaraes.weatherdemo.util.goToAppSettings
 
 class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
 
-    lateinit var weatherPresenter: WeatherPresenter
-    lateinit var permissionEnforcer: PermissionEnforcer
+    private lateinit var weatherPresenter: WeatherPresenter
+    private lateinit var rxPermissions: RxPermissions
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,26 +29,17 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
 
         val dependencyInjection = DependencyInjection(this)
 
-        permissionEnforcer = dependencyInjection.permissionEnforcer(this)
-        permissionEnforcer.requestPermissions()
+        rxPermissions = RxPermissions(this)
 
         weatherPresenter = dependencyInjection.weatherPresenter()
         weatherPresenter.attachView(this)
 
 
-        srl_weather.setOnRefreshListener { this.getCurrentWeather() }
+        srl_weather.setOnRefreshListener { withLocationPermission { weatherPresenter.getWeatherData() } }
+
+        withLocationPermission { weatherPresenter.getWeatherData() }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getCurrentWeather()
-    }
-
-    private fun getCurrentWeather() {
-        if (permissionEnforcer.allPermissionsGranted()) {
-            weatherPresenter.getWeatherData()
-        }
-    }
 
     override fun showProgress() {
         srl_weather.isRefreshing = true
@@ -75,15 +68,32 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
         super.onDestroy()
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        permissionEnforcer.enforcePermissions()
+    private fun withLocationPermission(callback: () -> Unit) {
+        this.let { activity ->
+            RxPermissions(activity)
+                    .requestEach(Manifest.permission.ACCESS_FINE_LOCATION)
+                    .subscribe { permission ->
+                        when {
+                            permission.granted -> { callback() }
+                            permission.shouldShowRequestPermissionRationale -> {
+                                showPermissionRationale(R.string.permission_location_rationale) { weatherPresenter.getWeatherData() }
+                            }
+                            else -> {
+                                showPermissionRationale(R.string.permission_location_rationale) { goToAppSettings() }
+                            }
+                        }
+
+                    }
+        }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == PermissionEnforcer.APP_SETTINGS_REQUEST_CODE) {
-            permissionEnforcer.enforcePermissions()
-        }
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun showPermissionRationale(permissionMessage: Int, method: () -> Unit) {
+        val dialogBuilder = AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setMessage(permissionMessage)
+                .setPositiveButton(android.R.string.ok) { _, _ -> withLocationPermission { method() } }
+                .setNegativeButton(android.R.string.no) { _, _ -> }
+
+        dialogBuilder.create().show()
     }
 }
