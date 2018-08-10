@@ -6,8 +6,13 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.layout_weather_today.*
+import kotlinx.android.synthetic.main.activity_main.srl_weather
+import kotlinx.android.synthetic.main.layout_weather_today.img_weather_icon
+import kotlinx.android.synthetic.main.layout_weather_today.tv_city_name
+import kotlinx.android.synthetic.main.layout_weather_today.tv_city_temperature
+import kotlinx.android.synthetic.main.layout_weather_today.tv_summary
+import kotlinx.android.synthetic.main.layout_weather_today.tv_weather_rain
+import kotlinx.android.synthetic.main.layout_weather_today.tv_weather_wind
 import me.pedroguimaraes.weatherdemo.R
 import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 import me.pedroguimaraes.weatherdemo.model.WeatherInfo

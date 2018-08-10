@@ -10,7 +10,7 @@ import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter
 import me.pedroguimaraes.weatherdemo.model.Weather
 
 class WeatherPresenter(private val darkSkyApiInterface: DarkSkyApiInterface,
-                       private val locationGetter: LocationGetter) : WeatherContract.WeatherPresenter {
+        private val locationGetter: LocationGetter) : WeatherContract.WeatherPresenter {
 
     override var weatherView: WeatherContract.WeatherView? = null
     private var compositeDisposable = CompositeDisposable()

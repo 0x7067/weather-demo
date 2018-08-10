@@ -1,7 +1,7 @@
 package me.pedroguimaraes.weatherdemo.model
 
 data class Weather(val latitude: Double, val longitude: Double, val timezone: String,
-				   val offset: Int, val currentWeather: CurrentWeather) {
+        val offset: Int, val currentWeather: CurrentWeather) {
 
     fun getWeatherInfo(): WeatherInfo {
         val lat = this.latitude
