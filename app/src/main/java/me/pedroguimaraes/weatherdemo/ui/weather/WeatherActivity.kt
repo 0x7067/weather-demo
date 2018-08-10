@@ -1,10 +1,7 @@
 package me.pedroguimaraes.weatherdemo.ui.weather
 
 import android.Manifest
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -14,6 +11,7 @@ import kotlinx.android.synthetic.main.layout_weather_today.*
 import me.pedroguimaraes.weatherdemo.R
 import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 import me.pedroguimaraes.weatherdemo.model.WeatherInfo
+import me.pedroguimaraes.weatherdemo.util.goToAppSettings
 
 class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
 
@@ -71,12 +69,12 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
                     .requestEach(Manifest.permission.ACCESS_FINE_LOCATION)
                     .subscribe { permission ->
                         when {
-                            permission.granted -> callback()
+                            permission.granted -> { callback() }
                             permission.shouldShowRequestPermissionRationale -> {
                                 showPermissionRationale(R.string.permission_location_rationale) { weatherPresenter.getWeatherData() }
                             }
                             else -> {
-                                showPermissionRationale(R.string.permission_location_rationale) { goToSettings() }
+                                showPermissionRationale(R.string.permission_location_rationale) { goToAppSettings() }
                             }
                         }
 
@@ -92,12 +90,5 @@ class WeatherActivity : AppCompatActivity(), WeatherContract.WeatherView {
                 .setNegativeButton(android.R.string.no) { _, _ -> }
 
         dialogBuilder.create().show()
-    }
-
-    private fun goToSettings() {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                Uri.fromParts("package", packageName, null))
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
     }
 }
