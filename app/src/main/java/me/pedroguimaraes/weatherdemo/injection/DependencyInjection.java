@@ -5,20 +5,17 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.LocationManager;
-
 import java.util.Locale;
-
 import me.pedroguimaraes.weatherdemo.api.DarkSkyApiInterface;
 import me.pedroguimaraes.weatherdemo.interactors.location.LocationGetter;
 import me.pedroguimaraes.weatherdemo.interactors.permissions.PermissionEnforcer;
 import me.pedroguimaraes.weatherdemo.ui.weather.WeatherPresenter;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 
 public class DependencyInjection {
 
@@ -40,7 +37,6 @@ public class DependencyInjection {
         if (okHttpClient == null) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(BODY);
-
 
             okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)

@@ -9,7 +9,6 @@ import android.os.Bundle
 import me.pedroguimaraes.weatherdemo.WeatherApplication
 import me.pedroguimaraes.weatherdemo.injection.DependencyInjection
 
-
 open class LocationGetter : LocationListener {
 
     private val dependencyInjection = DependencyInjection(WeatherApplication.getContext())
@@ -22,10 +21,12 @@ open class LocationGetter : LocationListener {
     @SuppressLint("MissingPermission")
     fun getLocation(): Location? {
         if (hasNetworkAndIsEnabled()) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATES, MIN_DISTANCE_TO_REQUEST_LOCATION, this)
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_FOR_UPDATES,
+                    MIN_DISTANCE_TO_REQUEST_LOCATION, this)
             location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         } else if (hasGpsAndIsEnabled()) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_FOR_UPDATES, MIN_DISTANCE_TO_REQUEST_LOCATION, this)
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_FOR_UPDATES,
+                    MIN_DISTANCE_TO_REQUEST_LOCATION, this)
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         }
 
@@ -53,15 +54,12 @@ open class LocationGetter : LocationListener {
     }
 
     override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
-
     }
 
     override fun onProviderEnabled(provider: String) {
-
     }
 
     override fun onProviderDisabled(provider: String) {
-
     }
 
     companion object {
@@ -69,5 +67,4 @@ open class LocationGetter : LocationListener {
         private const val MIN_DISTANCE_TO_REQUEST_LOCATION: Float = 1.0F
         private const val MIN_TIME_FOR_UPDATES: Long = 1000
     }
-
 }

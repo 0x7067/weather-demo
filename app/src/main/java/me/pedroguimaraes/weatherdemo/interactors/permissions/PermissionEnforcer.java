@@ -7,10 +7,10 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-
 import me.pedroguimaraes.weatherdemo.R;
 
 public class PermissionEnforcer {
+
     public static final int APP_SETTINGS_REQUEST_CODE = 101;
 
     private final Activity activity;
@@ -58,7 +58,8 @@ public class PermissionEnforcer {
     }
 
     private void goToSettings() {
-        Intent appPermissionSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + activity.getPackageName()));
+        Intent appPermissionSettings = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.parse("package:" + activity.getPackageName()));
         appPermissionSettings.addCategory(Intent.CATEGORY_DEFAULT);
         activity.startActivityForResult(appPermissionSettings, APP_SETTINGS_REQUEST_CODE);
     }
